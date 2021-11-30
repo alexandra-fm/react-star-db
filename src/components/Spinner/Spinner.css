@@ -3,6 +3,9 @@
   50% { transform: rotate(180deg) }
   100% { transform: rotate(360deg) }
 }
+.spinner {
+ margin: 0 auto;
+}
 .ldio-4k6dmehcq9i div {
   position: absolute;
   animation: ldio-4k6dmehcq9i 1s linear infinite;
