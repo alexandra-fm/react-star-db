@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import SwapiService from "../../services/SwapiService"
 
 import Spinner from "../Spinner"
+import ErrorButton from "../ErrorButton"
 import ErrorIndicator from "../ErrorIndicator"
 
 import "./PersonDetails.css"
@@ -110,6 +111,7 @@ const PersonView = ({ person }) => {
             <span>{eyeColor}</span>
           </li>
         </ul>
+        <ErrorButton />
       </div>
     </React.Fragment>
   )
