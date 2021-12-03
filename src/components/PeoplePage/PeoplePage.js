@@ -3,7 +3,7 @@ import React, { Component } from "react"
 import SwapiService from "../../services/SwapiService"
 
 import ItemList from "../ItemList"
-import ItemDetails from "../ItemDetails"
+import ItemDetails, { Record } from "../ItemDetails/ItemDetails"
 import Row from "../Row"
 import ErrorBoundry from "../ErrorBoundry"
 
@@ -39,7 +39,10 @@ export default class PeoplePage extends Component {
         itemId={this.state.selectedPerson}
         getData={getPerson}
         getImageUrl={getPersonImage}
-      />
+      >
+        <Record field="gender" label="Gender" />
+        <Record field="eyeColor" label="Eye Color" />
+      </ItemDetails>
     )
 
     return (
