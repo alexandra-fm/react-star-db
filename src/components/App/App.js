@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
 import SwapiService from "../../services/SwapiService"
-import DummySwapiService from "../../services/DummySwapiService"
+//import DummySwapiService from "../../services/DummySwapiService"
 
 import Header from "../Header"
 import RandomPlanet from "../RandomPlanet"
