@@ -4,7 +4,15 @@ import SwapiService from "../../services/SwapiService"
 
 import Header from "../Header"
 import RandomPlanet from "../RandomPlanet"
-import PeoplePage from "../PeoplePage"
+//import PeoplePage from "../PeoplePage"
+import {
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails,
+  PersonList,
+  PlanetList,
+  StarshipList,
+} from "../SwComponents"
 import ErrorButton from "../ErrorButton"
 import ErrorIndicator from "../ErrorIndicator"
 //import PlanetDetails from "../PlanetDetails"
@@ -18,6 +26,7 @@ export default class App extends Component {
   state = {
     showRandomPlanet: true,
     hasError: false,
+    selectedItem: 3,
   }
 
   componentDidCatch() {
@@ -32,6 +41,12 @@ export default class App extends Component {
       return {
         showRandomPlanet: !state.showRandomPlanet,
       }
+    })
+  }
+
+  onItemSelected = id => {
+    this.setState({
+      selectedItem: id,
     })
   }
 
@@ -56,7 +71,28 @@ export default class App extends Component {
           <ErrorButton />
         </div>
 
-        <PeoplePage />
+        <PersonDetails selectedPerson={this.state.selectedItem} />
+        <PlanetDetails selectedPlanet={this.state.selectedItem} />
+        <StarshipDetails selectedStarship={this.state.selectedItem} />
+
+        <PersonList
+          onItemSelected={this.onItemSelected}
+          renderItem={({ name, gender, birthYear }) =>
+            `${name} (${gender}, ${birthYear})`
+          }
+        />
+
+        <PlanetList
+          onItemSelected={this.onPersonSelected}
+          renderItem={({ name }) => name}
+        />
+
+        <StarshipList
+          onItemSelected={this.onPersonSelected}
+          renderItem={({ name }) => name}
+        />
+
+        {/* <PeoplePage /> */}
       </div>
     )
   }

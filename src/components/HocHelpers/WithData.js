@@ -3,7 +3,7 @@ import React, { Component } from "react"
 import Spinner from "../Spinner"
 import ErrorIndicator from "../ErrorIndicator"
 
-const WithData = View => {
+const WithData = (View, getData) => {
   return class extends Component {
     state = {
       data: null,
@@ -11,7 +11,7 @@ const WithData = View => {
     }
 
     componentDidMount() {
-      const { getData } = this.props
+      //const { getData } = this.props
 
       getData()
         .then(data => {

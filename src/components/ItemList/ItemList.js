@@ -1,7 +1,5 @@
 import React from "react"
 
-import { WithData } from "../HocHelpers"
-
 import "./ItemList.css"
 
 const ItemList = props => {
@@ -25,4 +23,4 @@ const ItemList = props => {
   return <ul className="item-list list-group">{items}</ul>
 }
 
-export default WithData(ItemList)
+export default ItemList
