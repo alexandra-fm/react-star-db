@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 
 import SwapiService from "../../services/SwapiService"
+import DummySwapiService from "../../services/DummySwapiService"
 
 import Header from "../Header"
 import RandomPlanet from "../RandomPlanet"
@@ -13,6 +14,7 @@ import {
   PlanetList,
   StarshipList,
 } from "../SwComponents"
+import { SwapiServiceProvider } from "../SwapiServiceContext"
 import ErrorButton from "../ErrorButton"
 import ErrorIndicator from "../ErrorIndicator"
 //import PlanetDetails from "../PlanetDetails"
@@ -26,7 +28,7 @@ export default class App extends Component {
   state = {
     showRandomPlanet: true,
     hasError: false,
-    selectedItem: 3,
+    selectedItem: null,
   }
 
   componentDidCatch() {
@@ -58,31 +60,33 @@ export default class App extends Component {
     const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null
 
     return (
-      <div className="stardb-app">
-        <Header />
-        {planet}
-        <div className="row mb2 button-row">
-          <button
-            className="toggle-planet btn btn-warning btn-lg"
-            onClick={this.toggleRandomPlanet}
-          >
-            Toggle Random Planet
-          </button>
-          <ErrorButton />
+      <SwapiServiceProvider value={this.swapiService}>
+        <div className="stardb-app">
+          <Header />
+          {planet}
+          <div className="row mb2 button-row">
+            <button
+              className="toggle-planet btn btn-warning btn-lg"
+              onClick={this.toggleRandomPlanet}
+            >
+              Toggle Random Planet
+            </button>
+            <ErrorButton />
+          </div>
+
+          <PersonDetails selectedPerson={this.state.selectedItem} />
+          <PlanetDetails selectedPlanet={this.state.selectedItem} />
+          <StarshipDetails selectedStarship={this.state.selectedItem} />
+
+          <PersonList onItemSelected={this.onItemSelected} />
+
+          <PlanetList onItemSelected={this.onItemSelected} />
+
+          <StarshipList onItemSelected={this.onItemSelected} />
+
+          {/* <PeoplePage /> */}
         </div>
-
-        <PersonDetails selectedPerson={this.state.selectedItem} />
-        <PlanetDetails selectedPlanet={this.state.selectedItem} />
-        <StarshipDetails selectedStarship={this.state.selectedItem} />
-
-        <PersonList onItemSelected={this.onItemSelected} />
-
-        <PlanetList onItemSelected={this.onPersonSelected} />
-
-        <StarshipList onItemSelected={this.onPersonSelected} />
-
-        {/* <PeoplePage /> */}
-      </div>
+      </SwapiServiceProvider>
     )
   }
 }
