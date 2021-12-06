@@ -75,22 +75,11 @@ export default class App extends Component {
         <PlanetDetails selectedPlanet={this.state.selectedItem} />
         <StarshipDetails selectedStarship={this.state.selectedItem} />
 
-        <PersonList
-          onItemSelected={this.onItemSelected}
-          renderItem={({ name, gender, birthYear }) =>
-            `${name} (${gender}, ${birthYear})`
-          }
-        />
+        <PersonList onItemSelected={this.onItemSelected} />
 
-        <PlanetList
-          onItemSelected={this.onPersonSelected}
-          renderItem={({ name }) => name}
-        />
+        <PlanetList onItemSelected={this.onPersonSelected} />
 
-        <StarshipList
-          onItemSelected={this.onPersonSelected}
-          renderItem={({ name }) => name}
-        />
+        <StarshipList onItemSelected={this.onPersonSelected} />
 
         {/* <PeoplePage /> */}
       </div>

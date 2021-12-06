@@ -1,3 +1,3 @@
-import WithData from "./WithData"
+import withData from "./WithData"
 
-export { WithData }
+export { withData }

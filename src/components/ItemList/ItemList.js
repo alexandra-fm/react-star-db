@@ -3,11 +3,11 @@ import React from "react"
 import "./ItemList.css"
 
 const ItemList = props => {
-  const { data, onItemSelected, renderItem } = props
+  const { data, onItemSelected, children: renderLabel } = props
 
   const items = data.map(item => {
     const { id } = item
-    const label = renderItem(item)
+    const label = renderLabel(item)
 
     return (
       <li
