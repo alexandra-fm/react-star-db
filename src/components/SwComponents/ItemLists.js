@@ -3,7 +3,7 @@ import React from "react"
 import SwapiService from "../../services/SwapiService"
 
 import ItemList from "../ItemList"
-import { withData } from "../HocHelpers"
+import { withData, withSwapiService } from "../HocHelpers"
 
 const swapiService = new SwapiService()
 
@@ -22,10 +22,22 @@ const renderModelAndName = ({ model, name }) => (
   </span>
 )
 
+const mapPersonMethodsToProps = swapiService => {
+  return {
+    getData: swapiService.getAllPeople,
+  }
+}
+
 const PersonList = withData(
   withChildFunction(ItemList, renderName),
   getAllPeople
 )
+
+/* const PersonList = withSwapiService(
+  withData(withChildFunction(ItemList, renderName)),
+  mapPersonMethodsToProps
+) */
+
 const PlanetList = withData(
   withChildFunction(ItemList, renderName),
   getAllPlanets

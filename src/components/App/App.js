@@ -1,40 +1,38 @@
 import React, { Component } from "react"
 
 import SwapiService from "../../services/SwapiService"
-//import DummySwapiService from "../../services/DummySwapiService"
+import DummySwapiService from "../../services/DummySwapiService"
 
 import Header from "../Header"
 import RandomPlanet from "../RandomPlanet"
-//import PeoplePage from "../PeoplePage"
-import {
-  PersonDetails,
-  PlanetDetails,
-  StarshipDetails,
-  PersonList,
-  PlanetList,
-  StarshipList,
-} from "../SwComponents"
+import { PeoplePage, PlanetsPage, StarshipsPage } from "../Pages"
 import { SwapiServiceProvider } from "../SwapiServiceContext"
 import ErrorButton from "../ErrorButton"
 import ErrorIndicator from "../ErrorIndicator"
-//import PlanetDetails from "../PlanetDetails"
-//import StarshipDetails from "../StarshipDetails"
 
 import "./App.css"
 
 export default class App extends Component {
-  swapiService = new SwapiService()
-
   state = {
     showRandomPlanet: true,
     hasError: false,
-    selectedItem: null,
+    swapiService: new SwapiService(),
   }
 
   componentDidCatch() {
     console.log("componentDidCatch")
     this.setState({
       hasError: true,
+    })
+  }
+
+  onServiceChange = () => {
+    this.setState(({ swapiService }) => {
+      const Service =
+        swapiService instanceof SwapiService ? DummySwapiService : SwapiService
+      return {
+        swapiService: new Service(),
+      }
     })
   }
 
@@ -46,12 +44,6 @@ export default class App extends Component {
     })
   }
 
-  onItemSelected = id => {
-    this.setState({
-      selectedItem: id,
-    })
-  }
-
   render() {
     if (this.state.hasError) {
       return <ErrorIndicator />
@@ -60,9 +52,9 @@ export default class App extends Component {
     const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null
 
     return (
-      <SwapiServiceProvider value={this.swapiService}>
+      <SwapiServiceProvider value={this.state.swapiService}>
         <div className="stardb-app">
-          <Header />
+          <Header onServiceChange={this.onServiceChange} />
           {planet}
           <div className="row mb2 button-row">
             <button
@@ -74,17 +66,9 @@ export default class App extends Component {
             <ErrorButton />
           </div>
 
-          <PersonDetails selectedPerson={this.state.selectedItem} />
-          <PlanetDetails selectedPlanet={this.state.selectedItem} />
-          <StarshipDetails selectedStarship={this.state.selectedItem} />
-
-          <PersonList onItemSelected={this.onItemSelected} />
-
-          <PlanetList onItemSelected={this.onItemSelected} />
-
-          <StarshipList onItemSelected={this.onItemSelected} />
-
-          {/* <PeoplePage /> */}
+          <PeoplePage />
+          <PlanetsPage />
+          <StarshipsPage />
         </div>
       </SwapiServiceProvider>
     )

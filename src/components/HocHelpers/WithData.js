@@ -7,35 +7,47 @@ const withData = (View, getData) => {
   return class extends Component {
     state = {
       data: null,
+
+      loading: true,
       error: false,
     }
 
     componentDidMount() {
-      //const { getData } = this.props
+      this.update()
+    }
+
+    update() {
+      this.setState({
+        loading: true,
+        error: false,
+      })
 
       getData()
         .then(data => {
           this.setState({
             data,
+            loading: false,
           })
         })
-        .catch(this.onError)
-    }
-
-    onError = err => {
-      this.setState({ error: true })
+        .catch(() => {
+          this.setState({
+            error: true,
+            loading: false,
+          })
+        })
     }
 
     render() {
-      const { data, error } = this.state
+      const { data, loading, error } = this.state
+
+      if (loading) {
+        return <Spinner />
+      }
 
       if (error) {
         return <ErrorIndicator />
       }
 
-      if (!data) {
-        return <Spinner />
-      }
       return <View {...this.props} data={data} />
     }
   }

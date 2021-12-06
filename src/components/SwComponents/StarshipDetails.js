@@ -3,11 +3,11 @@ import React from "react"
 import { withSwapiService } from "../HocHelpers"
 import ItemDetails, { Record } from "../ItemDetails/ItemDetails"
 
-const StarshipDetails = ({ selectedStarship, swapiService }) => {
+const StarshipDetails = ({ itemId, swapiService }) => {
   const { getStarship, getStarshipImage } = swapiService
   return (
     <ItemDetails
-      itemId={selectedStarship}
+      itemId={itemId}
       getData={getStarship}
       getImageUrl={getStarshipImage}
     >
