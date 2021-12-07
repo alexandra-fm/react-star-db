@@ -3,11 +3,10 @@ import React, { Component } from "react"
 import Spinner from "../Spinner"
 import ErrorIndicator from "../ErrorIndicator"
 
-const withData = (View, getData) => {
+const withData = View => {
   return class extends Component {
     state = {
       data: null,
-
       loading: true,
       error: false,
     }
@@ -22,19 +21,22 @@ const withData = (View, getData) => {
         error: false,
       })
 
-      getData()
-        .then(data => {
-          this.setState({
-            data,
-            loading: false,
-          })
-        })
-        .catch(() => {
-          this.setState({
-            error: true,
-            loading: false,
-          })
-        })
+      this.props.getData().then(this.onItemLoaded).catch(this.onError)
+    }
+
+    onItemLoaded = data => {
+      this.setState({
+        data,
+        loading: false,
+        error: false,
+      })
+    }
+
+    onError = err => {
+      this.setState({
+        loading: false,
+        error: true,
+      })
     }
 
     render() {

@@ -6,9 +6,9 @@ import { StarshipDetails, StarshipList } from "../SwComponents"
 export default class PeoplePage extends Component {
   state = { selectedItem: null }
 
-  onItemSelected = id => {
+  onItemSelected = selectedItem => {
     this.setState({
-      selectedItem: id,
+      selectedItem,
     })
   }
   render() {

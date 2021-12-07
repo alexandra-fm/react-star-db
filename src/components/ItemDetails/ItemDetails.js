@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 
-import SwapiService from "../../services/SwapiService"
-
 import Spinner from "../Spinner"
+
 import ErrorButton from "../ErrorButton"
 import ErrorIndicator from "../ErrorIndicator"
 
@@ -19,12 +18,10 @@ const Record = ({ item, field, label }) => {
 export { Record }
 
 export default class ItemDetails extends Component {
-  swapiService = new SwapiService()
-
   state = {
     item: null,
     image: null,
-    loading: false,
+    loading: true,
     error: false,
   }
 
@@ -42,28 +39,6 @@ export default class ItemDetails extends Component {
     }
   }
 
-  onItemLoaded = item => {
-    const { getImageUrl } = this.props
-    this.setState({
-      item,
-      image: getImageUrl(item),
-      loading: false,
-    })
-  }
-
-  onLoading() {
-    this.setState({
-      loading: true,
-    })
-  }
-
-  onError = err => {
-    this.setState({
-      error: true,
-      loading: false,
-    })
-  }
-
   updateItem() {
     const { itemId, getData } = this.props
     if (!itemId) {
@@ -77,14 +52,33 @@ export default class ItemDetails extends Component {
     getData(itemId).then(this.onItemLoaded).catch(this.onError)
   }
 
+  onItemLoaded = item => {
+    const { getImageUrl } = this.props
+    this.setState({
+      item,
+      image: getImageUrl(item),
+      loading: false,
+      error: false,
+    })
+  }
+
+  onError = err => {
+    this.setState({
+      loading: false,
+      error: true,
+    })
+  }
+
   render() {
     const { item, loading, error, image } = this.state
     const { children } = this.props
-    if (!this.state.item) {
+
+    if (!item) {
       return <span>Select an item from a list</span>
     }
 
     const hasData = !(loading || error)
+
     const errorMassage = error ? <ErrorIndicator /> : null
     const spinner = loading ? <Spinner /> : null
     const content = hasData ? (
@@ -107,7 +101,6 @@ const ItemView = ({ item, image, children }) => {
   return (
     <React.Fragment>
       <img className="item-image" src={image} alt={name} />
-
       <div className="card-body">
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
