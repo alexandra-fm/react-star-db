@@ -34,7 +34,6 @@ const withData = View => {
       this.setState({
         data,
         loading: false,
-        error: false,
       })
     }
 
