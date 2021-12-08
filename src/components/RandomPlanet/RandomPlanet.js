@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import PropTypes from "prop-types"
 
 import SwapiService from "../../services/SwapiService"
 
@@ -11,8 +12,8 @@ export default class RandomPlanet extends Component {
   static defaultProps = {
     updateInterval: 3500,
   }
-
-  static propTypes = {
+  // Валидация типов данных без использования доп. библиотек
+  /* static propTypes = {
     updateInterval: (props, propName, componentName) => {
       const value = props[propName]
 
@@ -21,6 +22,11 @@ export default class RandomPlanet extends Component {
       }
       return new TypeError(`${componentName}: ${propName} must be numder`)
     },
+  } */
+
+  // Валидация с применением библиотеки PropTypes
+  static propTypes = {
+    updateInterval: PropTypes.number,
   }
 
   swapiService = new SwapiService()
