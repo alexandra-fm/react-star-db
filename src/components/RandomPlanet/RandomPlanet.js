@@ -8,6 +8,21 @@ import ErrorIndicator from "../ErrorIndicator"
 import "./RandomPlanet.css"
 
 export default class RandomPlanet extends Component {
+  static defaultProps = {
+    updateInterval: 3500,
+  }
+
+  static propTypes = {
+    updateInterval: (props, propName, componentName) => {
+      const value = props[propName]
+
+      if (typeof value === "number" && !isNaN(value)) {
+        return null
+      }
+      return new TypeError(`${componentName}: ${propName} must be numder`)
+    },
+  }
+
   swapiService = new SwapiService()
 
   state = {
@@ -17,8 +32,10 @@ export default class RandomPlanet extends Component {
   }
 
   componentDidMount() {
+    const { updateInterval } = this.props
+
     this.updatePlanet()
-    this.interval = setInterval(this.updatePlanet, 3500)
+    this.interval = setInterval(this.updatePlanet, updateInterval)
   }
 
   componentWillUnmount() {
