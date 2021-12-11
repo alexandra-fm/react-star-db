@@ -9,7 +9,6 @@
   padding: .5rem 1rem;
   border-radius: 3px;
 }
-
 .header ul li:hover {
   background-color: #444;
 }
@@ -29,4 +28,9 @@
 .header button {
   height: 2.2rem;
   margin-top: 3px;
+}
+
+.active  {
+  color: #00bc8c;
+  text-decoration: underline;
 }

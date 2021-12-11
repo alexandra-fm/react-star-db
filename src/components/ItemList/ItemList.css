@@ -3,9 +3,19 @@
 }
 
 .item-list .list-group-item {
-  cursor: pointer;
+  
 }
 
 .item-list .list-group-item:hover {
   background-color: #444;
+}
+
+.list-group-item a{
+  display: inline-block;
+  width: 100%;  
+  color: #fff !important;
+  cursor: pointer;
+}
+.list-group-item a:hover{
+  text-decoration: none;
 }

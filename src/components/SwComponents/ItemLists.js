@@ -1,5 +1,7 @@
 import React from "react"
 
+import { Link } from "react-router-dom"
+
 import ItemList from "../ItemList"
 import {
   withData,
@@ -9,10 +11,12 @@ import {
 } from "../HocHelpers"
 
 const renderName = ({ name }) => <span>{name}</span>
-const renderModelAndName = ({ model, name }) => (
-  <span>
-    {name} ({model})
-  </span>
+const renderModelAndName = ({ model, name, id }) => (
+  <Link to={`/starships/${id}`}>
+    <span>
+      {name} ({model})
+    </span>
+  </Link>
 )
 
 const mapPersonMethodsToProps = swapiService => {
